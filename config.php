@@ -1,8 +1,8 @@
 <?php 
 $HOST = "localhost";
-$USER = "u17494";
-$PASS = "2172210";
-$DB = "u17494";
+$USER = "u20295";
+$PASS = "7045626";
+$DB = "u20295";
 $PREFIX = "";
 
 

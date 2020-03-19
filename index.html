@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   	<head>
+		<meta charset="utf-8">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   <meta name="viewport" content="width=device-wedth,initial-scale=1.0">
 		<link rel="stylesheet" href = "style.css">
 		<title>web3</title>
@@ -9,30 +10,32 @@
 
 	<body>
 		<div class="container justify-content-center p=0 m=0" id="content">
-			<fieldset>
+			<form target="_blank" method="POST" action="myPHP.php">
 				<legend>Контактная информация</legend>
-				<label for="fname">Имя:</label><br>
-				<input type="text" id="fname" name="fname" placeholder="Иванов"><br>
-				<label for="lname">Фамилия:</label><br>
-				<input type="text" id="lname" name="lname" placeholder="Иван"><br>
-				<label for="email">e-mail:</label><br>
-				<input type="text" id="email" name="email" placeholder="email"><br>
-				<label for="gender">Пол:</label><br>
-				<input type="radio" name="gender" value="male"> Мужской<br>
-				<input type="radio" name="gender" value="female"> Женский<br>
-				<label for="limb">Кол-во конечностей:</label><br>
-				<input type="radio" name="limb" value="2">2<br>
-				<input type="radio" name="limb" value="3">3<br>
-				<input type="radio" name="limb" value="4">4<br>
-				<input type="radio" name="limb" value=">4">>4<br>
-				<label for="super">Сверхспособности:</label><br>
-				<input type="checkbox" name="super" value="nodie"> бессмертие<br>
-				<input type="checkbox" name="super" value="walls"> прохождение сквозь стены<br>
-				<input type="checkbox" name="super" value="levitation"> левитация<br>
-				<textarea rows="10" cols="45" name="message"></textarea>
+				<label for="inName">Имя:</label><br>
+				<input type="text" id="inName" name="inName" placeholder="Иван"><br>
+				<label for="inEmail">e-mail:</label><br>
+				<input type="text" id="email" name="inEmail" placeholder="email"><br>
+				<br/>Дата рождения:<br/>
+                	<input name="inDate" value="01.01.2000" type="text"/><br/>
+				<label for="inGender">Пол:</label><br>
+					<input type="radio" name="inGender" value="male"> Мужской<br>
+					<input type="radio" name="inGender" value="female"> Женский<br>
+				<label for="inLimb">Кол-во конечностей:</label><br>
+					<input type="radio" name="inLimb">2<br>
+					<input type="radio" name="inLimb">3<br>
+					<input type="radio" name="inLimb">4<br>
+					<input type="radio" name="inLimb">>4<br>
+				<label for="inSuperpowers">Сверхспособности:</label><br>
+				<select name="inSuperpowers" multiple="multiple">
+					<option value="бессмертие">Бессмертие</option>
+					<option value="прохождение">Прохождение сквозь стены</option>
+					<option value="левитация">Левитация</option>
+				</select><br>
+				<textarea rows="10" cols="45" name="inMessage"></textarea><br>
 				<input type="checkbox" name="check" value="check"> C контрактом ознакомлен<br>
-			</fieldset>
-			<p><input class="submit" type="submit" value="Отправить"></p><br>
+				<p><input class="submit" type="submit" value="Отправить" name="send"></p><br>
+			</form>
 		</div>
 	</body>
 </html>

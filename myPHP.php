@@ -1,42 +1,54 @@
 <?php
-// Подключаемся к базе данных
-require_once "config.php";
-$arr = array(
-    'Не все значения заполнены.',
-    'email - не верно написан',
-    'Поздравляем! Вы успешно зарегистрированы.', 
-    'Пожалуйста, ознакомьтесь с контрактом!',
-);
 
+if($_POST['send'] == 'Отправить'){
 
-if($_POST['go'] == 'Отправить'){
-	// Проверяем галочку
-	if ($_POST['check'] == ''){
-        $error = $arr[3];
-	}
-	
     foreach($_POST as $key => $val){
-        // Проверяем, чтоб все поля были заполнены.
         if(empty($val)){
-            $error = $arr[0];
+			print('Вы пропустили поля, pаполните недостающие');
+			exit();
         }
     }
+
+    if(!preg_match("|^[-0-9a-z_\.]+@[-0-9a-z_^\.]+\.[a-z]{2,6}$|i", $_POST['inEmail'])){
+        print('Email введен неверно');
+        exit();
+    }
+	 
+	if ($_POST['check'] == ''){
+		print('Пожалуйста, ознакомьтесь с контрактом!');
+		exit();
+	}
     
     extract($_POST);
-    
-    // Проверяем email на соответствие шаблону
-    if(!preg_match("|^[-0-9a-z_\.]+@[-0-9a-z_^\.]+\.[a-z]{2,6}$|i", $email)){
-        $error = $arr[1];
-    } 
-    
-    // Если ошибок нет - 
-    // заносим нового пользователя в БД
-    if(empty($error)){
-        $query = mysql_query("INSERT INTO anketa VALUES('".$name."', '".$email."', '".$date."', '".$gender."', '".$limb."', '".$super."', '".$message."')");
-        if(!$query){$error = mysql_error();}
-        $error = $arr[2];
-    }
-    
+	$user = 'u20295';
+	$pass = '7045626';
+	$db = new PDO('mysql:host=localhost;dbname=u20295', $user, $pass);
+
+	$name = $_POST['inName'];
+	$email = $_POST['inEmail'];
+	$date = $_POST['inDate'];
+	$gender = $_POST['inGender'];
+	$limb = $_POST['inLimb'];
+	$super = $_POST['inSuperpowers'];
+	$message = $_POST['inMessage'];
+	try {
+		$stmt = $db->prepare("INSERT INTO anketa (name, email, date, gender, limb, super, message) VALUES (:name, :email, :date, :gender, :limb, :super, :message)");
+		$stmt->bindParam(':name', $name);
+		$stmt->bindParam(':email', $email);
+		$stmt->bindParam(':date', $date);
+		$stmt->bindParam(':gender', $gender);
+		$stmt->bindParam(':limb', $limb);
+		$stmt->bindParam(':super', $super);
+		$stmt->bindParam(':message', $message);
+		$stmt->execute();
+		print('Спасибо, результаты сохранены.');
+		exit();
+	}
+	catch(PDOException $e){
+		print('Error : ' . $e->getMessage());
+		exit();
+	}
 }
-echo $error;    
+
+header('Location: /web3');
 ?>
